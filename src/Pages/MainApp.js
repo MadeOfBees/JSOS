@@ -9,7 +9,7 @@ import {Stack} from '@mui/system';
 import 'rc-slider/assets/index.css';
 
 export default function MainApp() {
-    const ohHiMark = 24;
+    const ohHiMark = 12;
     const ohLoMark = 3;
     const marks = {};
     for (let i = ohLoMark; i <= ohHiMark; i++) {marks[i] = i;}
@@ -18,7 +18,7 @@ export default function MainApp() {
     const handleClose = () => setOpen(false);
     const style = { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', border: '2px solid #000', boxShadow: 24, p: 4, };
     const [userInput, setUserInput] = React.useState(ohLoMark);
-    const [totalUserSquares, setTotalUserSquares] = React.useState(5);
+    const [totalUserSquares, setTotalUserSquares] = React.useState(ohLoMark+2);
     const [refreshNum, setRefreshNum] = React.useState(0);
 
     const setUserInputFunction = (e) => {
@@ -45,7 +45,7 @@ export default function MainApp() {
             <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box sx={style}>
                     <Stack>
-                    <Slider min={ohLoMark} max={ohHiMark} marks={marks} step={1} defaultValue={ohLoMark+1} onChange={setUserInputFunction}/>
+                    <Slider min={ohLoMark} max={ohHiMark} marks={marks} step={1} defaultValue={ohLoMark+2} onChange={setUserInputFunction}/>
                     <Button variant="contained" onClick={takeUserInput} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20%' }}>Submit</Button>
                     </Stack>
                 </Box>

@@ -8,6 +8,9 @@ const DisplayBoard = ({ totalSquares, refreshNum }) => {
   const handleClose = () => setOpen(false);
   const primary = "info";
   const secondary = "warning";
+  const played = "success";
+  
+
   const drawBoard = () => {
     setOpen(false);
     const boardArray = [];
@@ -63,21 +66,20 @@ const DisplayBoard = ({ totalSquares, refreshNum }) => {
     checkWinStatus(newBoard, true);
   }
   
-
   return (
     <Grid container spacing={1} justifyContent="center">
       {board.map((item, index) => {
         if (item === 'S') {
           return (
             <Grid item xs={1} key={index}>
-              <Button variant="contained" color={primary} onClick={(e) => handleInput(e, index)}>S</Button>
+              <Button variant="contained" color={played}>S</Button>
             </Grid>
           )
         }
         if (item === 'O') {
           return (
             <Grid item xs={1} key={index}>
-              <Button variant="contained" color={secondary} onClick={(e) => handleInput(e, index)}>O</Button>
+              <Button variant="contained" color={played}>O</Button>
             </Grid>
           )
         }
