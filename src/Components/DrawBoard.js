@@ -9,17 +9,12 @@ const DisplayBoard = ({ totalSquares, refreshNum }) => {
   const primary = "info";
   const secondary = "warning";
   const played = "success";
-  
 
   const drawBoard = () => {
     setOpen(false);
-    const boardArray = [];
-    for (let i = 0; i < totalSquares; i++) {
-      boardArray.push(0);
-    }
-    setBoard(boardArray);
+    setBoard(Array(totalSquares).fill(0));
   }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line
   React.useEffect(() => drawBoard(), [refreshNum]);
   const handleInput = (e, index) => {
     const newBoard = [...board];
@@ -28,18 +23,13 @@ const DisplayBoard = ({ totalSquares, refreshNum }) => {
     checkWinStatus(newBoard);
     cpuTurn(newBoard, false);
   }
+
   const checkWinStatus = (newBoard, cpuTurn) => {
     if (newBoard.join('').includes('SOS')) {
-      if (cpuTurn) {
-        endGame("CPU Wins!");
-      } else {
-        endGame("You Win!");
-      }
-    }
-    else if (!newBoard.includes(0)) {
+      endGame(cpuTurn ? "CPU Wins!" : "You Win!");
+    } else if (!newBoard.includes(0)) {
       endGame("Draw!");
     }
-    else return;
   }
 
   const endGame = (input) => {
@@ -52,8 +42,7 @@ const DisplayBoard = ({ totalSquares, refreshNum }) => {
       return;
     }
     if (newBoard.includes(0)) {
-      const index = newBoard.indexOf(0);
-      newBoard[index] = 'S';
+      newBoard[newBoard.indexOf(0)] = 'S';
     } else {
       for (let i = 0; i < newBoard.length; i++) {
         if (newBoard[i] === 'O') {
@@ -68,43 +57,29 @@ const DisplayBoard = ({ totalSquares, refreshNum }) => {
   
   return (
     <Grid container spacing={1} justifyContent="center">
-      {board.map((item, index) => {
-        if (item === 'S') {
-          return (
-            <Grid item xs={1} key={index}>
-              <Button variant="contained" color={played}>S</Button>
-            </Grid>
-          )
-        }
-        if (item === 'O') {
-          return (
-            <Grid item xs={1} key={index}>
-              <Button variant="contained" color={played}>O</Button>
-            </Grid>
-          )
-        }
-        else {
-          return (
-            <Grid item xs={1} key={index}>
-              <Stack>
-                <Button variant="contained" color={primary} onClick={(e) => handleInput(e, index)}>S</Button>
-                <Button variant="contained" color={secondary} onClick={(e) => handleInput(e, index)}>O</Button>
-              </Stack>
-            </Grid>
-          )
-        }
-      }
-      )}
-        <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-          <Box sx={style}>
-            <Stack spacing={2}>
-              <h2 id="modal-modal-title">{modal}</h2>
-              <Button variant="contained" onClick={drawBoard}>Play Again</Button>
+      {board.map((item, index) => (
+        item === 'S' ? (
+          <Grid item xs={1} key={index}><Button variant="contained" color={played}>S</Button></Grid>
+        ) : item === 'O' ? (
+          <Grid item xs={1} key={index}><Button variant="contained" color={played}>O</Button></Grid>
+        ) : (
+          <Grid item xs={1} key={index}>
+            <Stack>
+              <Button variant="contained" color={primary} onClick={(e) => handleInput(e, index)}>S</Button>
+              <Button variant="contained" color={secondary} onClick={(e) => handleInput(e, index)}>O</Button>
             </Stack>
-          </Box>
-        </Modal>
+          </Grid>
+        )
+      ))}
+      <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+        <Box sx={style}>
+          <Stack spacing={2}>
+            <h2 id="modal-modal-title">{modal}</h2>
+            <Button variant="contained" color={primary} onClick={drawBoard}>Play Again</Button>
+          </Stack>
+        </Box>
+      </Modal>
     </Grid>
   );
-}
-
+};
 export default DisplayBoard;

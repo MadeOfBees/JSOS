@@ -9,9 +9,8 @@ function greetings() {
 function AboutUs() {
   return (
     <div>
-      <h1>Good {greetings()}!</h1>
-      <h3>Welcome to our site!</h3>
-      <h3>The rules of SOS</h3>
+      <h1>Good {greetings()}! Welcome to our site!</h1>
+      <h3>The rules of SOS:</h3>
       <ul>
         <li>The goal of the game is to spell SOS.</li>
         <li>Each player takes turns placing a letter on the board.</li>
