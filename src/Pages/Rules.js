@@ -11,12 +11,11 @@ function AboutUs() {
     <div>
       <h1>Good {greetings()}!</h1>
       <h3>Welcome to our site!</h3>
-      <h3>The rules of MineSweeper are simple</h3>
+      <h3>The rules of SOS</h3>
       <ul>
-        <li>Click on a square to reveal what is underneath</li>
-        <li>If you click on a mine, you lose</li>
-        <li>If you click on a number, it will tell you how many mines are in the surrounding squares</li>
-        <li>If you click on a blank square, it will reveal all the surrounding squares</li>
+        <li>The goal of the game is to spell SOS.</li>
+        <li>Each player takes turns placing a letter on the board.</li>
+        <li>The game ends when one player spells SOS or when the board is full.</li>
       </ul>
       <p>This is a website made by: <a href="https://github.com/MadeOfBees">MadeOfBees </a><GitHubIcon /></p>
     </div>

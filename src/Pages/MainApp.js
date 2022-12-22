@@ -9,27 +9,26 @@ import {Stack} from '@mui/system';
 import 'rc-slider/assets/index.css';
 
 export default function MainApp() {
-    const ohHiMark = 15;
+    const ohHiMark = 24;
+    const ohLoMark = 3;
     const marks = {};
-    for (let i = 3; i <= ohHiMark; i++) {marks[i] = i;}
-    const [hasStarted, setHasStarted] = React.useState(false);
+    for (let i = ohLoMark; i <= ohHiMark; i++) {marks[i] = i;}
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const style = { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', border: '2px solid #000', boxShadow: 24, p: 4, };
-    const [userInput, setUserInput] = React.useState(3);
-    const [totalUserSquares, setTotalUserSquares] = React.useState(3);
+    const [userInput, setUserInput] = React.useState(ohLoMark);
+    const [totalUserSquares, setTotalUserSquares] = React.useState(5);
     const [refreshNum, setRefreshNum] = React.useState(0);
 
     const setUserInputFunction = (e) => {
-        if (e < 3) return;
+        if (e < ohLoMark) return;
         else setUserInput(e);
     }
 
     const takeUserInput = () => {
         setRefreshNum(refreshNum + 1);
         setTotalUserSquares(userInput);
-        setHasStarted(true);
         handleClose();
     }
 
@@ -40,13 +39,13 @@ export default function MainApp() {
                     {totalUserSquares ? <DrawBoard totalSquares={totalUserSquares} refreshNum={refreshNum} /> : null}
                 </div>
                 <Grid container spacing={2} justifyContent="center" alignItems="center" style={{ marginTop: '5%' }}>
-                    <Button variant="contained" onClick={handleOpen}>{hasStarted ? "New Game" : "Start Game"}</Button>
+                    <Button variant="contained" onClick={handleOpen}>Pick board size</Button>
                 </Grid>
             </Box>
             <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box sx={style}>
                     <Stack>
-                    <Slider min={3} max={ohHiMark} marks={marks} step={1} defaultValue={2} onChange={setUserInputFunction}/>
+                    <Slider min={ohLoMark} max={ohHiMark} marks={marks} step={1} defaultValue={ohLoMark+1} onChange={setUserInputFunction}/>
                     <Button variant="contained" onClick={takeUserInput} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '20%' }}>Submit</Button>
                     </Stack>
                 </Box>
